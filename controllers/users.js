@@ -36,6 +36,15 @@ const UsersController = {
       res.redirect("/users/new");
     }
   },
+  //added index to display list of users on users/index
+  Index: (req, res) => {
+    User.find({ name: {$ne: req.session.username}}).exec((err, users) => {
+      if (err) {
+        throw err;
+      }
+        res.render("users/index", { users: users, loggedIn: req.session.loggedIn, username: req.session.username  });
+      });
+    }
 };
 
 module.exports = UsersController;

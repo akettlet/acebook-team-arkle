@@ -4,7 +4,7 @@ describe("Registration", () => {
     cy.visit("/users/new");
     cy.get("#email").type("someoneelseagain@example.com");
     cy.get("#password").type("Password1$");
-    cy.get("#name").type("Testing User");
+    cy.get("#name").type("Testing User3");
     cy.get("#submit").click();
 
     cy.url().should("include", "/posts");
