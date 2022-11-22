@@ -22,6 +22,7 @@ const UsersController = {
               } else {
                 req.session.loggedIn = true
                 req.session.user = user;
+                req.session.userId = user._id;
                 req.session.username = req.session.user.name;
                 res.status(201).redirect("/posts");
               }
@@ -42,9 +43,39 @@ const UsersController = {
       if (err) {
         throw err;
       }
-        res.render("users/index", { users: users, loggedIn: req.session.loggedIn, username: req.session.username  });
+      users.forEach(myFunction);
+        function myFunction(value) {
+           value.requested = (value.requests.includes(req.session.userId));
+        }
+
+      res.render("users/index", { users: users, loggedIn: req.session.loggedIn, username: req.session.username});
+    });
+
+  },
+
+  //added NewRequest to add friend requests to Database
+  NewRequest: (req, res) => {
+    const requester = req.session.userId;  //user who is making the request 
+    const requestee = req.body.requestee;  //user for whom the request is made against
+
+    // select user document that matches the requestee id and add requester id to array of requests
+    if (req.session.loggedIn === true) { 
+      User.findOne({_id: requestee}).then((user) => {
+        let requestList = user.requests;
+        requestList.push(requester);
+        user.requests = requestList;
+        user.save((err) => {
+          if (err) {
+            throw err;
+          } else {
+            res.redirect("/users/index");
+          }
+       });
       });
-    }
+    }  
+  }  
 };
+
+
 
 module.exports = UsersController;

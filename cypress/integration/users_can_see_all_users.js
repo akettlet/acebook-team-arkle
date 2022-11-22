@@ -8,6 +8,11 @@ describe("User page", () => {
 
       cy.visit("/users/index");
       cy.get(".users").should("not.contain", "Testing User1");
+
+    
+      cy.get(".users").find('button').first().should("contain", "Add Friend");
+      cy.get(".users").find('button').first().click();
+      cy.get(".users").find('button').first().should("contain", "Request Sent!");
     });
 
 
