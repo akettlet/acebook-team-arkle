@@ -1,11 +1,10 @@
 <script>
 
   window.post = function(data) {
-    var temp = data.requestee
     return fetch(('/users/friend'), 
       {method: "POST", headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)}).then(
-      document.getElementById(temp).innerHTML="Request Sent!");
+      document.getElementById(data.requestee).innerHTML="Request Sent!");
   }
 </script>
 <div class="container">
@@ -15,11 +14,7 @@
   <p>
   <div>
     <li> Name: {{ this.name }} </li> 
-      {{#if this.requested }}
-        <button id='{{this._id}}' onclick='post({requestee: "{{ this._id }}" })'>Request Sent!</button>
-      {{else }}
-        <button id='{{this._id}}' onclick='post({requestee: "{{ this._id }}" })'>Add Friend</button>
-      {{/if}}
+        <button id='{{this._id}}' onclick='post({requestee: "{{ this._id }}" })'>{{ this.requested }}</button>
   </div>
   </p>
   {{/each}}

@@ -1,5 +1,5 @@
 describe("User page", () => {
-    it("can see list of all registered users", () => {
+    it("can see list of all registered users and send friend request", () => {
       // sign in
       cy.visit("/sessions/new");
       cy.get("#email").type("someoneelse@example.com");
@@ -13,6 +13,16 @@ describe("User page", () => {
       cy.get(".users").find('button').first().should("contain", "Add Friend");
       cy.get(".users").find('button').first().click();
       cy.get(".users").find('button').first().should("contain", "Request Sent!");
+
+      // sign in
+      cy.get("input").click();
+      cy.visit("/sessions/new");
+      cy.get("#email").type("someone@example.com");
+      cy.get("#password").type("password");
+      cy.get("#submit").click();
+
+      cy.visit("/users/index");
+      cy.get(".users").find('button').first().should("contain", "Approve Friend Request!");
     });
 
 

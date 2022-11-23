@@ -23,6 +23,7 @@ const UsersController = {
                 req.session.loggedIn = true
                 req.session.user = user;
                 req.session.userId = user._id;
+                req.session.requests = user.requests;
                 req.session.username = req.session.user.name;
                 res.status(201).redirect("/posts");
               }
@@ -44,20 +45,23 @@ const UsersController = {
         throw err;
       }
       users.forEach(myFunction);
-        function myFunction(value) {
-           value.requested = (value.requests.includes(req.session.userId));
+        function myFunction(record) {
+          if (record.requests.includes(req.session.userId)) {            
+            record.requested = "Request Sent!";
+          }else {
+            record.requested = "Add Friend";
+          }
+          if (req.session.requests.includes(record._id.toString())) {
+            record.requested = "Approve Friend Request!";
+          }
         }
-
       res.render("users/index", { users: users, loggedIn: req.session.loggedIn, username: req.session.username});
     });
-
   },
-
   //added NewRequest to add friend requests to Database
   NewRequest: (req, res) => {
     const requester = req.session.userId;  //user who is making the request 
     const requestee = req.body.requestee;  //user for whom the request is made against
-
     // select user document that matches the requestee id and add requester id to array of requests
     if (req.session.loggedIn === true) { 
       User.findOne({_id: requestee}).then((user) => {
@@ -73,9 +77,7 @@ const UsersController = {
        });
       });
     }  
-  }  
-};
-
-
+  }
+}
 
 module.exports = UsersController;
