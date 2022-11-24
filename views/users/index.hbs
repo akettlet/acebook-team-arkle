@@ -11,16 +11,16 @@
     };
   }
 </script>
-<div class="container">
-<h1>Users</h1>
-<ul class="users">
+<div class="userContainer">
+<h1 style="text-align: center;">Users</h1><br>
+<ul class="users" style="list-style: none;">
   {{#each users}}
-  <p>
   <div>
-    <li> Name: {{ this.name }} </li> 
+    <li> 
+        Name: {{ this.name }} 
         <button id='{{this._id}}' onclick='post( "{{ this.url }}", {requestee: "{{ this._id }}" })'>{{ this.requested }}</button>
+    </li><br> 
   </div>
-  </p>
   {{/each}}
 </ul>
 </div>

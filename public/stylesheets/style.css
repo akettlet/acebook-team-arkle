@@ -33,6 +33,22 @@ a {
 	text-align: center;
 }
 
+.userContainer{
+	margin: 5% 35%;
+	max-width: 75%;
+	text-align: left;
+}
+
+
+.users button{
+	padding: 3px;
+	float: right;
+	color: #fff;
+	width: 200px;
+	border-radius: 5px;
+	background-color: #4267B2;
+}
+
 .form{
 	margin: 15px
 }
