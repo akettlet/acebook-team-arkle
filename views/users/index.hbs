@@ -1,10 +1,14 @@
 <script>
-
-  window.post = function(data) {
-    return fetch(('/users/friend'), 
+  window.post = function(url, data) {
+    if (url == "/users/friend") {
+      return fetch((url), 
       {method: "POST", headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)}).then(
-      document.getElementById(data.requestee).innerHTML="Request Sent!");
+      body: JSON.stringify(data)}).then(document.getElementById(data.requestee).innerHTML="Request Sent!");
+    }else {
+      return fetch((url), 
+      {method: "POST", headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)}).then(document.getElementById(data.requestee).innerHTML="UnFriend");
+    };
   }
 </script>
 <div class="container">
@@ -14,7 +18,7 @@
   <p>
   <div>
     <li> Name: {{ this.name }} </li> 
-        <button id='{{this._id}}' onclick='post({requestee: "{{ this._id }}" })'>{{ this.requested }}</button>
+        <button id='{{this._id}}' onclick='post( "{{ this.url }}", {requestee: "{{ this._id }}" })'>{{ this.requested }}</button>
   </div>
   </p>
   {{/each}}
