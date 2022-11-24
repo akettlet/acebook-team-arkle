@@ -22,6 +22,9 @@ const SessionsController = {
       } else {
         req.session.loggedIn = true;
         req.session.user = user;
+        req.session.userId = user._id;
+        req.session.requests = user.requests;
+        req.session.friends = user.friends;
         req.session.username = req.session.user.name;
         res.redirect("/posts");
       }

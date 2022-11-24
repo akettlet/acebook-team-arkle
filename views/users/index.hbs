@@ -1,0 +1,26 @@
+<script>
+  window.post = function(url, data) {
+    if (url == "/users/friend") {
+      return fetch((url), 
+      {method: "POST", headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)}).then(document.getElementById(data.requestee).innerHTML="Request Sent!");
+    }else {
+      return fetch((url), 
+      {method: "POST", headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)}).then(document.getElementById(data.requestee).innerHTML="UnFriend");
+    };
+  }
+</script>
+<div class="userContainer">
+<h1 style="text-align: center;">Users</h1><br>
+<ul class="users" style="list-style: none;">
+  {{#each users}}
+  <div>
+    <li> 
+        Name: {{ this.name }} 
+        <button id='{{this._id}}' onclick='post( "{{ this.url }}", {requestee: "{{ this._id }}" })'>{{ this.requested }}</button>
+    </li><br> 
+  </div>
+  {{/each}}
+</ul>
+</div>

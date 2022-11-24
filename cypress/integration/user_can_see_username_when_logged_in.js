@@ -8,7 +8,7 @@ describe("Nav bar", () => {
     cy.get("#submit").click();
 
     // posts view
-    cy.contains("Testing User");
+    cy.contains("Testing User2");
   });
 
   it("can see username when user sign in", () => {
@@ -19,6 +19,6 @@ describe("Nav bar", () => {
     cy.get("#submit").click();
 
     // posts view
-    cy.contains("Testing User");
+    cy.contains("Testing User2");
   });
 });
