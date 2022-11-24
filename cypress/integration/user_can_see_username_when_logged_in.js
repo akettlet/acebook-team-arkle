@@ -3,7 +3,7 @@ describe("Nav bar", () => {
     // sign up
     cy.visit("/users/new");
     cy.get("#email").type("someoneelse2@example.com");
-    cy.get("#name").type("Testing User");
+    cy.get("#name").type("Testing User2");
     cy.get("#password").type("Password1$");
     cy.get("#submit").click();
 
